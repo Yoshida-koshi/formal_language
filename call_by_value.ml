@@ -34,7 +34,7 @@ let rec isNormal ast = match ast with
   |  (Lambda (f,b)) -> isNormal b
   |  _ -> true
 
-(* 最左（最左最外）戦略ステップ *)
+(* 値渡し戦略ステップ *)
 let rec call_by_value_step ast = match ast with
      (App ((Lambda (f,b)), a)) -> if (isNormal a) then beta b (Var f) a else App ((Lambda (f,b)), call_by_value_step a)
   |  (App (f,a)) -> if (isNormal f) then App (f,call_by_value_step a)
@@ -92,5 +92,3 @@ App (i, App(i,i))), Var "z"))
 let succ = Lambda ("x", App(App (pair, _false), Var "x"))
 let pred2 = Lambda ("x", App (Var "x", _false)) 
 let iszero2 = Lambda ("x", App (Var "x", _true))
-(*問１ 適用順序戦略を実現しなさい．*)
-(*問２ 値渡し戦略を実現しなさい．*)
