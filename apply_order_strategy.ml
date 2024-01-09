@@ -39,7 +39,7 @@ let rec apply_order_strategy_step ast = match ast with
      (App ((Lambda (f,b)), a)) -> if (isNormal b) then if (isNormal a) then beta b (Var f) a else App ((Lambda (f,b), apply_order_strategy_step a)) else App ((Lambda (f, apply_order_strategy_step b), a))
   |  (App (f,a)) -> if (isNormal f) then App (f, apply_order_strategy_step a) else App (apply_order_strategy_step f, a)
   |  (Lambda (f,b)) -> Lambda (f, (apply_order_strategy_step b))
-  |  _ -> ast
+  |  x -> x
 
 (* 式の印字 *)
 let rec print_term ast = match ast with
